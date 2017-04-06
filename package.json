@@ -1,26 +1,25 @@
 {
-  "name": "aurelia-plugins-google-places-autocomplete",
-  "version": "1.3.4",
+  "name": "aurelia-google-places",
+  "version": "1.0.0",
   "description": "A Google Places Autocomplete plugin for Aurelia.",
   "keywords": [
     "aurelia",
-    "plugins",
     "plugin",
     "google",
     "places",
     "autocomplete"
   ],
-  "homepage": "https://github.com/aurelia-plugins/aurelia-plugins-google-places-autocomplete",
+  "homepage": "https://github.com/ne0guille/aurelia-plugins-google-places-autocomplete",
   "bugs": {
-    "url": "https://github.com/aurelia-plugins/aurelia-plugins-google-places-autocomplete/issues"
+    "url": "https://github.com/ne0guille/aurelia-plugins-google-places-autocomplete/issues"
   },
   "license": "MIT",
-  "author": "Bart Lenaerts <bart@itprosolutions.be> (http://itprosolutions.be/)",
+  "author": "Guillermo Eyherabide <eyherabideg@gmail.com> Forked from https://github.com/aurelia-plugins/aurelia-plugins-google-places-autocomplete",
   "main": "dist/commonjs/aurelia-plugins-google-places-autocomplete.js",
   "typings": "dist/aurelia-plugins-google-places-autocomplete.d.ts",
   "repository": {
     "type": "git",
-    "url": "http://github.com/aurelia-plugins/aurelia-plugins-google-places-autocomplete"
+    "url": "http://github.com/ne0guille/aurelia-plugins-google-places-autocomplete"
   },
   "jspm": {
     "registry": "npm",
