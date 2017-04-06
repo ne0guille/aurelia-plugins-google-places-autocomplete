@@ -1,4 +1,4 @@
-# aurelia-plugins-google-places-autocomplete
+# aurelia-google-places
 
 A Google Places Autocomplete plugin for Aurelia.
 
@@ -9,19 +9,19 @@ This plugin is a custom element build with the **Google Places AutocompleteServi
 **Webpack/Aurelia CLI**
 
 ```shell
-npm install aurelia-plugins-google-places-autocomplete --save
+npm install aurelia-google-places --save
 ```
 
 **JSPM**
 
 ```shell
-jspm install aurelia-plugins-google-places-autocomplete
+jspm install aurelia-google-places
 ```
 
 **Bower**
 
 ```shell
-bower install aurelia-plugins-google-places-autocomplete
+bower install aurelia-google-places
 ```
 
 ## Configuration
@@ -32,7 +32,7 @@ Add to `package.json`
   "aurelia": {
     "build": {
       "resources": [
-        "aurelia-plugins-google-places-autocomplete"
+        "aurelia-google-places"
       ]
     }
   }
@@ -47,11 +47,11 @@ export async function configure(aurelia) {
     .developmentLogging();
 
   aurelia.use
-    .plugin('aurelia-plugins-google-places-autocomplete', config => {
+    .plugin('aurelia-google-places', config => {
       config.options({
         apiScriptLoadedEvent: 'aurelia-plugins:google-maps:api-script-loaded', // if loadApiScript is false, the event that is subscribed to to know when the Google Maps API is loaded by another plugin
         key: '', // your Google API key retrieved from the Google Developer Console
-        language: 'nl', // see https://developers.google.com/maps/documentation/javascript/localization
+        language: 'es', // see https://developers.google.com/maps/documentation/javascript/localization
         libraries: 'places', // see https://developers.google.com/maps/documentation/javascript/libraries
         loadApiScript: true|false, // whether or not the <script> tag of the Google Maps API should be loaded
         options: { types: ['geocode'] } // see https://developers.google.com/maps/documentation/javascript/places-autocomplete#add_autocomplete
@@ -65,7 +65,7 @@ export async function configure(aurelia) {
 
 ## Usage
 
-Once Google Places Autocomplete is configured, to use it simply add the custom element `<aup-google-places-autocomplete></aup-google-places-autocomplete>` in your view.
+Once Google Places Autocomplete is configured, to use it simply add the custom element `<aup-google-places></aup-google-places>` in your view.
 
 ### Google Maps API loaded
 
@@ -76,11 +76,11 @@ Google Places Autocomplete needs at least the library `places`. Perhaps the othe
 
 ### Get the input value
 
-Bind the `value` attribute to `<aup-google-places-autocomplete></aup-google-places-autocomplete>` to get the value selected from the Google Places AutocompleteService. Do your own geocoding if necessary. You can also easily validate the value with `aurelia-validation`.
+Bind the `value` attribute to `<aup-google-places></aup-google-places>` to get the value selected from the Google Places AutocompleteService. Do your own geocoding if necessary. You can also easily validate the value with `aurelia-validation`.
 
 ```html
 <form submit.delegate="onSubmit()">
-  <aup-google-places-autocomplete bind.value="value"></aup-google-places-autocomplete>
+  <aup-google-places value.bind="value"></aup-google-places>
   <button type="submit">Submit</button>
 </form>
 ```
@@ -106,7 +106,7 @@ export class App {
 
 ### Other attributes
 
-The other attributes that can be used on `<aup-google-places-autocomplete></aup-google-places-autocomplete>` are:
+The other attributes that can be used on `<aup-google-places></aup-google-places>` are:
 
 * `placeholder`: The placeholder shown on the input.
 * `selectClass`: The CSS class added to the selected item in the autocomplete when using up and down keys.

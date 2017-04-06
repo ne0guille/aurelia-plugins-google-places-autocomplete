@@ -8,7 +8,7 @@ import {Config} from './aurelia-plugins-google-places-autocomplete-config';
 
 
 // CLASS ATTRIBUTES
-@customElement('aup-google-places-autocomplete')
+@customElement('aup-google-places')
 @inject(Element, Config, EventAggregator)
 
 
