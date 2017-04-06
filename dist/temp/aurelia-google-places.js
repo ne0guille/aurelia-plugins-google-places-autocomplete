@@ -115,7 +115,17 @@ var Config = exports.Config = function () {
   return Config;
 }();
 
-var GooglePlacesAutocomplete = exports.GooglePlacesAutocomplete = (_dec = (0, _aureliaTemplating.customElement)('aup-google-places-autocomplete'), _dec2 = (0, _aureliaDependencyInjection.inject)(Element, Config, _aureliaEventAggregator.EventAggregator), _dec3 = (0, _aureliaTemplating.bindable)({ defaultBindingMode: _aureliaBinding.bindingMode.twoWay }), _dec(_class = _dec2(_class = (_class2 = function () {
+function configure(aurelia, configCallback) {
+  var instance = aurelia.container.get(Config);
+
+  if (configCallback !== undefined && typeof configCallback === 'function') {
+    configCallback(instance);
+  }
+
+  aurelia.globalResources('./aurelia-plugins-google-places-autocomplete-converter', './aurelia-plugins-google-places-autocomplete-element');
+}
+
+var GooglePlacesAutocomplete = exports.GooglePlacesAutocomplete = (_dec = (0, _aureliaTemplating.customElement)('aup-google-places'), _dec2 = (0, _aureliaDependencyInjection.inject)(Element, Config, _aureliaEventAggregator.EventAggregator), _dec3 = (0, _aureliaTemplating.bindable)({ defaultBindingMode: _aureliaBinding.bindingMode.twoWay }), _dec(_class = _dec2(_class = (_class2 = function () {
   function GooglePlacesAutocomplete(element, config, eventAggregator) {
     var _this = this;
 
@@ -235,6 +245,8 @@ var GooglePlacesAutocomplete = exports.GooglePlacesAutocomplete = (_dec = (0, _a
         this.index++;
         if (this.index >= this.predictions.length) this.index = this.predictions.length - 1;
         return false;
+      default:
+        return false;
     }
     return true;
   };
@@ -262,9 +274,11 @@ var GooglePlacesAutocomplete = exports.GooglePlacesAutocomplete = (_dec = (0, _a
   };
 
   GooglePlacesAutocomplete.prototype._dispatchEvent = function _dispatchEvent() {
+    var clickEvent = void 0;
     if (!this._element.firstElementChild.form.attributes['submit.delegate']) return;
-    var clickEvent;
-    if (window.CustomEvent) clickEvent = new CustomEvent('submit', { bubbles: true, detail: event });else {
+    if (window.CustomEvent) {
+      clickEvent = new CustomEvent('submit', { bubbles: true, detail: event });
+    } else {
       clickEvent = document.createEvent('CustomEvent');
       clickEvent.initCustomEvent('submit', true, true, { data: event });
     }
@@ -321,9 +335,11 @@ var GooglePlacesAutocomplete = exports.GooglePlacesAutocomplete = (_dec = (0, _a
           reject(error);
         };
       });
-    } else if (window.google && window.google.maps) this._scriptPromise = new Promise(function (resolve) {
-      resolve();
-    });
+    } else if (window.google && window.google.maps) {
+      this._scriptPromise = new Promise(function (resolve) {
+        resolve();
+      });
+    }
   };
 
   return GooglePlacesAutocomplete;
@@ -341,8 +357,3 @@ var GooglePlacesAutocomplete = exports.GooglePlacesAutocomplete = (_dec = (0, _a
   enumerable: true,
   initializer: null
 })), _class2)) || _class) || _class);
-function configure(aurelia, configCallback) {
-  var instance = aurelia.container.get(Config);
-  if (configCallback !== undefined && typeof configCallback === 'function') configCallback(instance);
-  aurelia.globalResources('./aurelia-plugins-google-places-autocomplete-converter', './aurelia-plugins-google-places-autocomplete-element');
-}

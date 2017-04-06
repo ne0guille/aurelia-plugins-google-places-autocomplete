@@ -1,1 +1,1 @@
-export * from './aurelia-plugins-google-places-autocomplete';
+export * from './aurelia-google-places';

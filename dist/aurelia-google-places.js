@@ -10,9 +10,9 @@ export class HighlightValueConverter {
     array.forEach(item => {
       if (!item.matched_substrings || !item.matched_substrings.length) return;
       item.innerHTML = item.description;
-      for (var i = 0, j = item.matched_substrings.length; i < j; i++) {
-        var length = item.matched_substrings[i].length;
-        var offset = item.matched_substrings[i].offset + i * 17;
+      for (let i = 0, j = item.matched_substrings.length; i < j; i++) {
+        let length = item.matched_substrings[i].length;
+        let offset = item.matched_substrings[i].offset + i * 17;
         item.innerHTML = [item.innerHTML.slice(0, offset), '<strong>', item.innerHTML.slice(offset, length), '</strong>', item.innerHTML.slice(length)].join('');
       }
     });
@@ -53,8 +53,20 @@ export class Config {
 }
 
 // IMPORTS
+// PUBLIC METHODS
+export function configure(aurelia, configCallback) {
+  let instance = aurelia.container.get(Config);
+
+  if (configCallback !== undefined && typeof(configCallback) === 'function') {
+    configCallback(instance);
+  }
+
+  aurelia.globalResources('./aurelia-plugins-google-places-autocomplete-converter', './aurelia-plugins-google-places-autocomplete-element');
+}
+
+// IMPORTS
 // CLASS ATTRIBUTES
-@customElement('aup-google-places-autocomplete')
+@customElement('aup-google-places')
 @inject(Element, Config, EventAggregator)
 
 
@@ -99,7 +111,7 @@ export class GooglePlacesAutocomplete {
     await this._servicePromise;
     if (!newValue) return this._clear();
     if (this.selected) return this._clear(true);
-    var request = Object.assign({ input: newValue }, this._config.get('options'));
+    let request = Object.assign({ input: newValue }, this._config.get('options'));
     this._service.getPlacePredictions(request, (predictions, status) => {
       if (status !== window.google.maps.places.PlacesServiceStatus.OK) return this._clear();
       this.predictions = predictions;
@@ -120,19 +132,21 @@ export class GooglePlacesAutocomplete {
     if (this.selected) this.selected = false;
     if (!this.show) return true;
     switch (event.keyCode) {
-      case 13:
-        this.index !== -1 ? this.select(this.predictions[this.index], false) : this.show = false;
-        setTimeout(() => { this._element.firstElementChild.blur(); }, 100);
-        break;
-      case 27: this.show = false; break;
-      case 38:
-        this.index--;
-        if (this.index < 0) this.index = 0;
-        return false;
-      case 40:
-        this.index++;
-        if (this.index >= this.predictions.length) this.index = this.predictions.length - 1;
-        return false;
+    case 13:
+      this.index !== -1 ? this.select(this.predictions[this.index], false) : this.show = false;
+      setTimeout(() => { this._element.firstElementChild.blur(); }, 100);
+      break;
+    case 27: this.show = false; break;
+    case 38:
+      this.index--;
+      if (this.index < 0) this.index = 0;
+      return false;
+    case 40:
+      this.index++;
+      if (this.index >= this.predictions.length) this.index = this.predictions.length - 1;
+      return false;
+    default:
+      return false;
     }
     return true;
   }
@@ -152,11 +166,11 @@ export class GooglePlacesAutocomplete {
   }
 
   _dispatchEvent() {
+    let clickEvent;
     if (!this._element.firstElementChild.form.attributes['submit.delegate']) return;
-    var clickEvent;
-    if (window.CustomEvent)
+    if (window.CustomEvent) {
       clickEvent = new CustomEvent('submit', { bubbles: true, detail: event });
-    else {
+    } else {
       clickEvent = document.createEvent('CustomEvent');
       clickEvent.initCustomEvent('submit', true, true, { data: event });
     }
@@ -174,7 +188,7 @@ export class GooglePlacesAutocomplete {
   _loadApiScript() {
     if (this._scriptPromise) return;
     if (window.google === undefined || window.google.maps === undefined) {
-      var script = document.createElement('script');
+      let script = document.createElement('script');
       script.async = true;
       script.defer = true;
       script.src = `https://maps.googleapis.com/maps/api/js?callback=aureliaPluginsGooglePlacesAutocompleteCallback&key=${this._config.get('key')}&language=${this._config.get('language')}&libraries=${this._config.get('libraries')}`;
@@ -187,17 +201,8 @@ export class GooglePlacesAutocomplete {
         };
         script.onerror = error => { reject(error); };
       });
-    }
-    else if (window.google && window.google.maps)
+    } else if (window.google && window.google.maps) {
       this._scriptPromise = new Promise(resolve => { resolve(); });
+    }
   }
-}
-
-// IMPORTS
-// PUBLIC METHODS
-export function configure(aurelia, configCallback) {
-  var instance = aurelia.container.get(Config);
-  if (configCallback !== undefined && typeof(configCallback) === 'function')
-    configCallback(instance);
-  aurelia.globalResources('./aurelia-plugins-google-places-autocomplete-converter', './aurelia-plugins-google-places-autocomplete-element');
 }

@@ -82,7 +82,7 @@ define(['exports', 'aurelia-binding', 'aurelia-dependency-injection', 'aurelia-e
 
   var _dec, _dec2, _dec3, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3;
 
-  var GooglePlacesAutocomplete = exports.GooglePlacesAutocomplete = (_dec = (0, _aureliaTemplating.customElement)('aup-google-places-autocomplete'), _dec2 = (0, _aureliaDependencyInjection.inject)(Element, _aureliaPluginsGooglePlacesAutocompleteConfig.Config, _aureliaEventAggregator.EventAggregator), _dec3 = (0, _aureliaTemplating.bindable)({ defaultBindingMode: _aureliaBinding.bindingMode.twoWay }), _dec(_class = _dec2(_class = (_class2 = function () {
+  var GooglePlacesAutocomplete = exports.GooglePlacesAutocomplete = (_dec = (0, _aureliaTemplating.customElement)('aup-google-places'), _dec2 = (0, _aureliaDependencyInjection.inject)(Element, _aureliaPluginsGooglePlacesAutocompleteConfig.Config, _aureliaEventAggregator.EventAggregator), _dec3 = (0, _aureliaTemplating.bindable)({ defaultBindingMode: _aureliaBinding.bindingMode.twoWay }), _dec(_class = _dec2(_class = (_class2 = function () {
     function GooglePlacesAutocomplete(element, config, eventAggregator) {
       var _this = this;
 
@@ -202,6 +202,8 @@ define(['exports', 'aurelia-binding', 'aurelia-dependency-injection', 'aurelia-e
           this.index++;
           if (this.index >= this.predictions.length) this.index = this.predictions.length - 1;
           return false;
+        default:
+          return false;
       }
       return true;
     };
@@ -229,9 +231,11 @@ define(['exports', 'aurelia-binding', 'aurelia-dependency-injection', 'aurelia-e
     };
 
     GooglePlacesAutocomplete.prototype._dispatchEvent = function _dispatchEvent() {
+      var clickEvent = void 0;
       if (!this._element.firstElementChild.form.attributes['submit.delegate']) return;
-      var clickEvent;
-      if (window.CustomEvent) clickEvent = new CustomEvent('submit', { bubbles: true, detail: event });else {
+      if (window.CustomEvent) {
+        clickEvent = new CustomEvent('submit', { bubbles: true, detail: event });
+      } else {
         clickEvent = document.createEvent('CustomEvent');
         clickEvent.initCustomEvent('submit', true, true, { data: event });
       }
@@ -288,9 +292,11 @@ define(['exports', 'aurelia-binding', 'aurelia-dependency-injection', 'aurelia-e
             reject(error);
           };
         });
-      } else if (window.google && window.google.maps) this._scriptPromise = new Promise(function (resolve) {
-        resolve();
-      });
+      } else if (window.google && window.google.maps) {
+        this._scriptPromise = new Promise(function (resolve) {
+          resolve();
+        });
+      }
     };
 
     return GooglePlacesAutocomplete;

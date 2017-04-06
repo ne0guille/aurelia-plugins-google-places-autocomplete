@@ -4,14 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _aureliaPluginsGooglePlacesAutocomplete = require('./aurelia-plugins-google-places-autocomplete');
+var _aureliaGooglePlaces = require('./aurelia-google-places');
 
-Object.keys(_aureliaPluginsGooglePlacesAutocomplete).forEach(function (key) {
+Object.keys(_aureliaGooglePlaces).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function get() {
-      return _aureliaPluginsGooglePlacesAutocomplete[key];
+      return _aureliaGooglePlaces[key];
     }
   });
 });

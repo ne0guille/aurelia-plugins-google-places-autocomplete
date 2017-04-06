@@ -52,7 +52,7 @@ import { bindable, customElement } from 'aurelia-templating';
 
 import { Config } from './aurelia-plugins-google-places-autocomplete-config';
 
-export let GooglePlacesAutocomplete = (_dec = customElement('aup-google-places-autocomplete'), _dec2 = inject(Element, Config, EventAggregator), _dec3 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec(_class = _dec2(_class = (_class2 = class GooglePlacesAutocomplete {
+export let GooglePlacesAutocomplete = (_dec = customElement('aup-google-places'), _dec2 = inject(Element, Config, EventAggregator), _dec3 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec(_class = _dec2(_class = (_class2 = class GooglePlacesAutocomplete {
   constructor(element, config, eventAggregator) {
     this._scriptPromise = null;
     this._service = null;
@@ -93,7 +93,7 @@ export let GooglePlacesAutocomplete = (_dec = customElement('aup-google-places-a
       yield _this._servicePromise;
       if (!newValue) return _this._clear();
       if (_this.selected) return _this._clear(true);
-      var request = Object.assign({ input: newValue }, _this._config.get('options'));
+      let request = Object.assign({ input: newValue }, _this._config.get('options'));
       _this._service.getPlacePredictions(request, function (predictions, status) {
         if (status !== window.google.maps.places.PlacesServiceStatus.OK) return _this._clear();
         _this.predictions = predictions;
@@ -130,6 +130,8 @@ export let GooglePlacesAutocomplete = (_dec = customElement('aup-google-places-a
         this.index++;
         if (this.index >= this.predictions.length) this.index = this.predictions.length - 1;
         return false;
+      default:
+        return false;
     }
     return true;
   }
@@ -150,9 +152,11 @@ export let GooglePlacesAutocomplete = (_dec = customElement('aup-google-places-a
   }
 
   _dispatchEvent() {
+    let clickEvent;
     if (!this._element.firstElementChild.form.attributes['submit.delegate']) return;
-    var clickEvent;
-    if (window.CustomEvent) clickEvent = new CustomEvent('submit', { bubbles: true, detail: event });else {
+    if (window.CustomEvent) {
+      clickEvent = new CustomEvent('submit', { bubbles: true, detail: event });
+    } else {
       clickEvent = document.createEvent('CustomEvent');
       clickEvent.initCustomEvent('submit', true, true, { data: event });
     }
@@ -174,10 +178,10 @@ export let GooglePlacesAutocomplete = (_dec = customElement('aup-google-places-a
   _loadApiScript() {
     if (this._scriptPromise) return;
     if (window.google === undefined || window.google.maps === undefined) {
-      var script = document.createElement('script');
+      let script = document.createElement('script');
       script.async = true;
       script.defer = true;
-      script.src = `https://maps.googleapis.com/maps/api/js?callback=aureliaPluginsGooglePlacesAutocompleteCallback&key=${ this._config.get('key') }&language=${ this._config.get('language') }&libraries=${ this._config.get('libraries') }`;
+      script.src = `https://maps.googleapis.com/maps/api/js?callback=aureliaPluginsGooglePlacesAutocompleteCallback&key=${this._config.get('key')}&language=${this._config.get('language')}&libraries=${this._config.get('libraries')}`;
       script.type = 'text/javascript';
       document.body.appendChild(script);
       this._scriptPromise = new Promise((resolve, reject) => {
@@ -189,9 +193,11 @@ export let GooglePlacesAutocomplete = (_dec = customElement('aup-google-places-a
           reject(error);
         };
       });
-    } else if (window.google && window.google.maps) this._scriptPromise = new Promise(resolve => {
-      resolve();
-    });
+    } else if (window.google && window.google.maps) {
+      this._scriptPromise = new Promise(resolve => {
+        resolve();
+      });
+    }
   }
 }, (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'placeholder', [bindable], {
   enumerable: true,

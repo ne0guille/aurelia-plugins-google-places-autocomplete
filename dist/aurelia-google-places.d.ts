@@ -31,6 +31,10 @@ export declare class Config {
   set(key?: any, value?: any): any;
 }
 
+// IMPORTS
+// PUBLIC METHODS
+export declare function configure(aurelia?: any, configCallback?: any): any;
+
 // PUBLIC CLASS
 
 // IMPORTS
@@ -59,7 +63,3 @@ export declare class GooglePlacesAutocomplete {
   keydown(event?: any): any;
   select(prediction?: any, submit?: any): any;
 }
-
-// IMPORTS
-// PUBLIC METHODS
-export declare function configure(aurelia?: any, configCallback?: any): any;

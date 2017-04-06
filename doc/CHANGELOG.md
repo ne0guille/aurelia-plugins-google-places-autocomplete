@@ -1,3 +1,8 @@
+<a name="1.0.3"></a>
+## [1.0.3](https://github.com/ne0guille/aurelia-plugins-google-places-autocomplete/compare/v1.3.4...v1.0.3) (2017-04-06)
+
+
+
 ### 1.0.0-beta.1.1.0 (2016-03-23)
 
 * Update to Babel 6
