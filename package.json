@@ -1,6 +1,6 @@
 {
   "name": "aurelia-google-places",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "A Google Places Autocomplete plugin for Aurelia.",
   "keywords": [
     "aurelia",
@@ -15,8 +15,8 @@
   },
   "license": "MIT",
   "author": "Guillermo Eyherabide <eyherabideg@gmail.com> Forked from https://github.com/aurelia-plugins/aurelia-plugins-google-places-autocomplete",
-  "main": "dist/commonjs/aurelia-plugins-google-places-autocomplete.js",
-  "typings": "dist/aurelia-plugins-google-places-autocomplete.d.ts",
+  "main": "dist/commonjs/aurelia-google-places.js",
+  "typings": "dist/aurelia-google-places.d.ts",
   "repository": {
     "type": "git",
     "url": "http://github.com/ne0guille/aurelia-plugins-google-places-autocomplete"
@@ -100,8 +100,8 @@
   "aurelia": {
     "build": {
       "resources": [
-        "aurelia-plugins-google-places-autocomplete/aurelia-plugins-google-places-autocomplete-converter",
-        "aurelia-plugins-google-places-autocomplete/aurelia-plugins-google-places-autocomplete-element"
+        "aurelia-google-places/aurelia-plugins-google-places-autocomplete-converter",
+        "aurelia-google-places/aurelia-plugins-google-places-autocomplete-element"
       ]
     },
     "documentation": {

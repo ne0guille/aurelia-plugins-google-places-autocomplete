@@ -1,3 +1,13 @@
+<a name="1.0.6"></a>
+## [1.0.6](https://github.com/ne0guille/aurelia-plugins-google-places-autocomplete/compare/v1.3.4...v1.0.6) (2017-04-06)
+
+
+
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/ne0guille/aurelia-plugins-google-places-autocomplete/compare/v1.3.4...v1.0.5) (2017-04-06)
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/ne0guille/aurelia-plugins-google-places-autocomplete/compare/v1.3.4...v1.0.3) (2017-04-06)
 
